@@ -1,80 +1,71 @@
-# 🕒 TellTimeAgent – Google A2A Protocol Demo
+# 🧠 A2A Agent Samples – Powered by Google's Agent-to-Agent Protocol
 
-This project demonstrates a minimal implementation of Google's [Agent-to-Agent (A2A)](https://github.com/google/A2A) protocol using Python. It features:
+Welcome to the `a2a_samples` repository! This project contains multiple implementations of AI agents using [Google's A2A (Agent-to-Agent)](https://github.com/google/A2A) protocol.
 
-- A simple A2A server agent (`TellTimeAgent`) built with Flask
-- A client agent that discovers and communicates with it
-- Full compliance with the A2A message structure and discovery flow
+These implementations demonstrate how to:
+- Set up and run A2A-compliant servers and clients
+- Use discovery endpoints and standardized task formats
+- Integrate with Google's ADK (Agent Development Kit)
 
-This is perfect for beginners who want to understand how agents discover each other and exchange messages using A2A.
-
----
-
-## 🚀 Features
-
-- Implements A2A discovery via `/.well-known/agent.json`
-- Exposes a `tasks/send` endpoint for receiving tasks
-- Replies to queries with the current system time
-- Client generates a task and parses the response using A2A conventions
+We plan to continuously add more versions to illustrate various approaches and frameworks.
 
 ---
 
-## 📂 Project Structure
+## 📁 Folder Structure
 
 ```
 a2a_samples/
-├── server/
-│   └── tell_time_server.py       # Flask-based A2A server agent
-├── client/
-│   └── time_client.py            # A2A client agent that queries the server
+├── version_1_simple/      # Basic implementation using Flask
+├── version_2_adk_agent/   # Advanced agent built using Google ADK + Gemini
 ```
 
 ---
 
-## 🧪 How to Run
+## 📦 Version Overview
 
-### 1. Install dependencies
+### ✅ `version_1_simple`
+A beginner-friendly demo that uses Flask to create a basic A2A server agent (`TellTimeAgent`) and a client that:
+- Fetches the agent card from the `/.well-known/agent.json` endpoint
+- Sends a simple task to `/tasks/send`
+- Receives a time-based response
 
-```bash
-pip install flask requests
-```
+➡️ [Explore the folder](./version_1_simple/)
 
-### 2. Start the server
 
-```bash
-cd a2a_samples/server
-python tell_time_server.py
-```
+### 🚀 `version_2_adk_agent`
+A more advanced version using **Google's ADK (Agent Development Kit)** to implement a fully functional Gemini-powered A2A agent.
+- Integrates memory, sessions, and artifacts
+- Uses ADK runners and LLM agents
+- Structured with reusable components and aligned with A2A's JSON-RPC model
 
-### 3. Run the client
+➡️ [Explore the folder](./version_2_adk_agent/)
 
-In a separate terminal:
-
-```bash
-cd a2a_samples/client
-python time_client.py
-```
-
-### ✅ Output
-
-```
-Connected to: TellTimeAgent – Tells the current time when asked.
-Agent says: The current time is: 2025-04-16 22:10:45
-```
 
 ---
 
-## 📖 Learn More
+## 🧪 Running the Code
+Each version contains its own `README.md` file with detailed instructions on:
+- Setting up Python environments
+- Installing dependencies
+- Running the server and client
 
-Want to understand the A2A protocol in detail?
+Make sure to check the respective version folder before you begin!
 
-- [A2A GitHub Repository](https://github.com/google/A2A)
-- [A2A Protocol Documentation](https://github.com/google/A2A/tree/main/docs)
+---
+
+## 🛠 Future Plans
+- Add streaming support via SSE and `tasks/sendSubscribe`
+- Add push notification samples
+- Add more ADK agent variants with different skills
+
+Stay tuned and ⭐ star the repo if you find it useful!
 
 ---
 
 ## 📜 License
+This repository is licensed under the **GNU General Public License v3.0**. 
+See the [LICENSE](./LICENSE) file for full details.
 
-This project is licensed under the GNU General Public License v3.0.  
-See the [LICENSE](LICENSE) file for full details.
+---
 
+Happy building with A2A! 🛠
