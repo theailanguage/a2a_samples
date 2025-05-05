@@ -1,3 +1,4 @@
+readme_md = '''
 # 🧠 A2A Agent Samples – Powered by Google's Agent-to-Agent Protocol
 
 Welcome to the `a2a_samples` repository! This project contains multiple implementations of AI agents using [Google's A2A (Agent-to-Agent)](https://github.com/google/A2A) protocol.
@@ -13,10 +14,11 @@ We plan to continuously add more versions to illustrate various approaches and f
 
 ## 📁 Folder Structure
 
-```
+```bash
 a2a_samples/
-├── version_1_simple/      # Basic implementation using Flask
-├── version_2_adk_agent/   # Advanced agent built using Google ADK + Gemini
+├── version_1_simple/        # Basic implementation using Flask
+├── version_2_adk_agent/     # Advanced agent built using Google ADK + Gemini
+├── version_3_multi_agent/   # Multi-agent orchestration example
 ```
 
 ---
@@ -40,6 +42,14 @@ A more advanced version using **Google's ADK (Agent Development Kit)** to implem
 
 ➡️ [Explore the folder](./version_2_adk_agent/)
 
+
+### 🌐 `version_3_multi_agent`
+A multi-agent orchestration example demonstrating:
+- Dynamic discovery of TellTimeAgent and GreetingAgent via a registry
+- An OrchestratorAgent that routes user queries to the appropriate child agent
+- A CLI (`cmd.py`) for seamless end-to-end testing
+
+➡️ [Explore the folder](./version_3_multi_agent/)
 
 ---
 
@@ -69,3 +79,4 @@ See the [LICENSE](./LICENSE) file for full details.
 ---
 
 Happy building with A2A! 🛠
+'''

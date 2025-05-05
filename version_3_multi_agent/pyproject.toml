@@ -1,7 +1,7 @@
 [project]
-name = "version_2_adk_agent"
+name = "version_3_multi_agent"
 version = "0.1.0"
-description = "A2A Agent With Google ADK"
+description = "version_3_multi_agent"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
@@ -10,5 +10,10 @@ dependencies = [
     "fastapi>=0.115.12",
     "google-adk>=0.2.0",
     "google-genai>=1.11.0",
+    "httpx>=0.28.1",
+    "httpx-sse>=0.4.0",
+    "pydantic>=2.11.4",
     "python-dotenv>=1.1.0",
+    "starlette>=0.46.2",
+    "uvicorn>=0.34.2",
 ]
