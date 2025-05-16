@@ -1,0 +1,8 @@
+// .vscode/settings.json
+{
+    "python.analysis.extraPaths": [
+        "./",
+    ],
+    "python.autoComplete.extraPaths": ["./"],
+}
+  

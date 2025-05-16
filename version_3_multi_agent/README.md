@@ -49,7 +49,7 @@ version_3_multi_agent/
 1. **Clone & navigate**
 
     ```bash
-    git clone https://github.com/your-username/a2a-adk-multi-agent.git
+    git clone https://github.com/theailanguage/a2a_samples.git
     cd a2a_samples/version_3_multi_agent
     ```
 
