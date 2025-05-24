@@ -73,7 +73,7 @@ class TellTimeAgent:
             instruction="Reply with the current time in the format YYYY-MM-DD HH:MM:SS."  # System prompt
         )
 
-    async def invoke(self, query: str, session_id: str) -> str:
+    def invoke(self, query: str, session_id: str) -> str:
         """
         📥 Handle a user query and return a response string.
 
@@ -86,14 +86,14 @@ class TellTimeAgent:
         """
 
         # 🔁 Try to reuse an existing session (or create one if needed)
-        session = await self._runner.session_service.get_session(
+        session = self._runner.session_service.get_session_sync(
             app_name=self._agent.name,
             user_id=self._user_id,
             session_id=session_id
         )
 
         if session is None:
-            session = await self._runner.session_service.create_session(
+            session = self._runner.session_service.create_session_sync(
                 app_name=self._agent.name,
                 user_id=self._user_id,
                 session_id=session_id,
@@ -106,21 +106,19 @@ class TellTimeAgent:
             parts=[types.Part.from_text(text=query)]
         )
 
-        # 🚀 Run the agent using the Runner and collect the last event
-        last_event = None
-        async for event in self._runner.run_async(
+        # 🚀 Run the agent using the Runner and collect the response events
+        events = list(self._runner.run(
             user_id=self._user_id,
             session_id=session.id,
             new_message=content
-        ):
-            last_event = event
+        ))
 
         # 🧹 Fallback: return empty string if something went wrong
-        if not last_event or not last_event.content or not last_event.content.parts:
+        if not events or not events[-1].content or not events[-1].content.parts:
             return ""
 
         # 📤 Extract and join all text responses into one string
-        return "\n".join([p.text for p in last_event.content.parts if p.text])
+        return "\n".join([p.text for p in events[-1].content.parts if p.text])
 
 
     async def stream(self, query: str, session_id: str):

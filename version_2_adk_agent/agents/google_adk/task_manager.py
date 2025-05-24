@@ -94,7 +94,7 @@ class AgentTaskManager(InMemoryTaskManager):
         query = self._get_user_query(request)
 
         # Step 3: Ask the Gemini agent to respond (synchronous call here)
-        result_text = await self.agent.invoke(query, request.params.sessionId)
+        result_text = self.agent.invoke(query, request.params.sessionId)
 
         # Step 4: Turn the agent's response into a Message object
         agent_message = Message(
