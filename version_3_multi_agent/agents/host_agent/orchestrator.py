@@ -171,21 +171,34 @@ class OrchestratorAgent:
             return child_task.history[-1].parts[0].text
         return ""
 
-    def invoke(self, query: str, session_id: str) -> str:
+    async def invoke(self, query: str, session_id: str) -> str:
         """
         Main entry: receives a user query + session_id,
         sets up or retrieves a session, wraps the query for the LLM,
         runs the Runner (with tools enabled), and returns the final text.
+        Note - function updated 28 May 2025
+        Summary of changes:
+        1. Agent's invoke method is made async
+        2. All async calls (get_session, create_session, run_async) 
+            are awaited inside invoke method
+        3. task manager's on_send_task updated to await the invoke call
+
+        Reason - get_session and create_session are async in the 
+        "Current" Google ADK version and were synchronous earlier 
+        when this lecture was recorded. This is due to a recent change 
+        in the Google ADK code 
+        https://github.com/google/adk-python/commit/1804ca39a678433293158ec066d44c30eeb8e23b
+
         """
         # Attempt to reuse an existing session
-        session = self._runner.session_service.get_session(
+        session = await self._runner.session_service.get_session(
             app_name=self._agent.name,
             user_id=self._user_id,
             session_id=session_id
         )
         # Create new if not found
         if session is None:
-            session = self._runner.session_service.create_session(
+            session = await self._runner.session_service.create_session(
                 app_name=self._agent.name,
                 user_id=self._user_id,
                 session_id=session_id,
@@ -198,18 +211,21 @@ class OrchestratorAgent:
             parts=[types.Part.from_text(text=query)]
         )
 
-        # Run the agent synchronously; collects a list of events
-        events = list(self._runner.run(
+        # 🚀 Run the agent using the Runner and collect the last event
+        last_event = None
+        async for event in self._runner.run_async(
             user_id=self._user_id,
             session_id=session.id,
             new_message=content
-        ))
+        ):
+            last_event = event
 
-        # If no content or parts, return empty fallback
-        if not events or not events[-1].content or not events[-1].content.parts:
+        # 🧹 Fallback: return empty string if something went wrong
+        if not last_event or not last_event.content or not last_event.content.parts:
             return ""
-        # Join all text parts into a single string reply
-        return "\n".join(p.text for p in events[-1].content.parts if p.text)
+
+        # 📤 Extract and join all text responses into one string
+        return "\n".join([p.text for p in last_event.content.parts if p.text])
 
 
 class OrchestratorTaskManager(InMemoryTaskManager):
@@ -243,7 +259,7 @@ class OrchestratorTaskManager(InMemoryTaskManager):
 
         # Step 2: run orchestration logic
         user_text = self._get_user_text(request)
-        response_text = self.agent.invoke(user_text, request.params.sessionId)
+        response_text = await self.agent.invoke(user_text, request.params.sessionId)
 
         # Step 3: wrap the LLM output into a Message
         reply = Message(role="agent", parts=[TextPart(text=response_text)])
