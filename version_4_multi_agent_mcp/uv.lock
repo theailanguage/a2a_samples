@@ -1654,7 +1654,7 @@ dependencies = [
 requires-dist = [
     { name = "asyncclick", specifier = ">=8.1.8" },
     { name = "click", specifier = ">=8.1.8" },
-    { name = "google-adk", specifier = ">=0.2.0" },
+    { name = "google-adk", specifier = ">=1.0.0" },
     { name = "httpx", specifier = ">=0.28.1" },
     { name = "httpx-sse", specifier = ">=0.4.0" },
     { name = "langchain-google-genai", specifier = ">=2.1.4" },
