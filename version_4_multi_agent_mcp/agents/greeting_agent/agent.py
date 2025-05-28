@@ -168,13 +168,26 @@ class GreetingAgent:
         )
 
 
-    def invoke(self, query: str, session_id: str) -> str:
+    async def invoke(self, query: str, session_id: str) -> str:
         """
         🔄 Public: send a user query through the orchestrator LLM pipeline,
         ensuring session reuse or creation, and return the final text reply.
+        Note - function updated 28 May 2025
+        Summary of changes:
+        1. Agent's invoke method is made async
+        2. All async calls (get_session, create_session, run_async) 
+            are awaited inside invoke method
+        3. task manager's on_send_task updated to await the invoke call
+
+        Reason - get_session and create_session are async in the 
+        "Current" Google ADK version and were synchronous earlier 
+        when this lecture was recorded. This is due to a recent change 
+        in the Google ADK code 
+        https://github.com/google/adk-python/commit/1804ca39a678433293158ec066d44c30eeb8e23b
+
         """
         # 1) Try to fetch an existing session
-        session = self.runner.session_service.get_session(
+        session = await self.runner.session_service.get_session(
             app_name=self.orchestrator.name,
             user_id=self.user_id,
             session_id=session_id,
@@ -182,7 +195,7 @@ class GreetingAgent:
 
         # 2) If not found, create a new session with empty state
         if session is None:
-            session = self.runner.session_service.create_session(
+            session = await self.runner.session_service.create_session(
                 app_name=self.orchestrator.name,
                 user_id=self.user_id,
                 session_id=session_id,
@@ -195,16 +208,18 @@ class GreetingAgent:
             parts=[types.Part.from_text(text=query)]
         )
 
-        # 4) Run the orchestrator and collect all response “events”
-        events = list(self.runner.run(
+        # 🚀 Run the agent using the Runner and collect the last event
+        last_event = None
+        async for event in self.runner.run_async(
             user_id=self.user_id,
             session_id=session.id,
             new_message=content
-        ))
+        ):
+            last_event = event
 
-        # 5) If no events or no content parts, bail out with empty string
-        if not events or not events[-1].content.parts:
+        # 🧹 Fallback: return empty string if something went wrong
+        if not last_event or not last_event.content or not last_event.content.parts:
             return ""
 
-        # 6) Otherwise, join all text parts of the final event and return
-        return "\n".join(p.text for p in events[-1].content.parts if p.text)
+        # 📤 Extract and join all text responses into one string
+        return "\n".join([p.text for p in last_event.content.parts if p.text])

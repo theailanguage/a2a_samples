@@ -106,7 +106,7 @@ class GreetingTaskManager(InMemoryTaskManager):
         # Step 3: Call the GreetingAgent to generate a greeting text.
         # Since GreetingAgent.invoke() might be an async function,
         # await it to get the returned string.
-        greeting_text = self.agent.invoke(
+        greeting_text = await self.agent.invoke(
             user_text,
             request.params.sessionId
         )
