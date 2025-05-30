@@ -20,6 +20,7 @@ a2a_samples/
 ├── version_2_adk_agent/     # Advanced agent built using Google ADK + Gemini
 ├── version_3_multi_agent/   # Multi-agent orchestration example
 ├── version_4_multi_agent_mcp/ # Distributed multi-agent with A2A + MCP integration
+├── version_4p01_with_vision_agent/ # Adds Gemini-based VisionAgent to version_4 architecture
 ├── version_5_a2a_sdk/       # Minimal A2A PYTHON SDK setup with streaming, LangChain + Gemini
 ```
 
@@ -35,7 +36,7 @@ A beginner-friendly demo that uses Flask to create a basic A2A server agent (`Te
 * Sends a simple task to `/tasks/send`
 * Receives a time-based response
 
-️→ [Explore the folder](./version_1_simple/)
+︎→ [Explore the folder](./version_1_simple/)
 
 ### 🚀 `version_2_adk_agent`
 
@@ -45,7 +46,7 @@ A more advanced version using **Google's ADK (Agent Development Kit)** to implem
 * Uses ADK runners and LLM agents
 * Structured with reusable components and aligned with A2A's JSON-RPC model
 
-️→ [Explore the folder](./version_2_adk_agent/)
+︎→ [Explore the folder](./version_2_adk_agent/)
 
 ### 🌐 `version_3_multi_agent`
 
@@ -55,7 +56,7 @@ A multi-agent orchestration example demonstrating:
 * An OrchestratorAgent that routes user queries to the appropriate child agent
 * A CLI (`cmd.py`) for seamless end-to-end testing
 
-️→ [Explore the folder](./version_3_multi_agent/)
+︎→ [Explore the folder](./version_3_multi_agent/)
 
 ### 🔄 `version_4_multi_agent_mcp`
 
@@ -66,9 +67,19 @@ A cutting-edge integration combining Google’s A2A protocol with Anthropic’s 
 * **Orchestrator Agent** – A central LLM-powered router that decides whether to delegate to a child agent or invoke an MCP tool.
 * **Modular & Extensible** – Simply update a registry or config to add new A2A agents or MCP servers.
 
-️→ [Explore the folder](./version_4_multi_agent_mcp/)
+︎→ [Explore the folder](./version_4_multi_agent_mcp/)
 
-### 💡 `version_5_a2a_sdk`
+### 💡 `version_4p01_with_vision_agent`
+
+An enhanced version of `version_4_multi_agent_mcp` that adds support for a **Gemini-based VisionAgent**:
+
+* Accepts image input via local file path or URL
+* Uses Google ADK's multimodal capabilities
+* Integrates cleanly into the existing A2A and MCP architecture
+
+︎→ [Explore the folder](./version_4p01_with_vision_agent/)
+
+### 📊 `version_5_a2a_sdk`
 
 An educational minimal setup using the official **A2A Python SDK** with LangChain + Gemini.
 
@@ -77,7 +88,7 @@ An educational minimal setup using the official **A2A Python SDK** with LangChai
 * Streaming + multi-turn + structured response support
 * Ideal starting point for learning A2A SDK fundamentals
 
-️→ [Explore the folder](./version_5_a2a_sdk/)
+︎→ [Explore the folder](./version_5_a2a_sdk/)
 
 ---
 
