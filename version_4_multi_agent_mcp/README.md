@@ -61,7 +61,7 @@ version_4_multi_agent_mcp/
 
 ## 🛠️ Prerequisites
 
-- Python 3.13+
+- Python 3.11+
 - [uv](https://github.com/astral-sh/uv) (optional, for streamlined venv & installs)
 - A valid `GOOGLE_API_KEY` with access to Gemini via the Google ADK
 
@@ -77,8 +77,10 @@ version_4_multi_agent_mcp/
 
 2. **Create & activate virtualenv**  
    ```bash
-   uv sync --all-groups
+   cd version_4p01_with_vision_agent
+   uv venv
    source .venv/bin/activate
+   uv sync --all-groups
    ```
 
 3. **Configure credentials**  
@@ -96,7 +98,7 @@ version_4_multi_agent_mcp/
 
 ```bash
 # TellTimeAgent (returns current time)
-uv run python3 -m agents.tell_time_agent --host localhost --port 10000
+uv run python3 -m agents.tell_time_agent --host localhost --port 10002
 
 # GreetingAgent (calls TellTimeAgent + LLM greeting)
 uv run python3 -m agents.greeting_agent --host localhost --port 10001
@@ -107,13 +109,13 @@ uv run python3 -m agents.greeting_agent --host localhost --port 10001
 ### 2. Start the Host OrchestratorAgent
 
 ```bash
-uv run python3 -m agents.host_agent.entry --host localhost --port 10002
+uv run python3 -m agents.host_agent.entry --host localhost --port 10000
 ```
 
 ### 3. Use the CLI to talk to your Orchestrator
 
 ```bash
-uv run python3 -m app.cmd.cmd --agent http://localhost:10002
+uv run python3 -m app.cmd.cmd --agent http://localhost:10000
 ```
 ---
 

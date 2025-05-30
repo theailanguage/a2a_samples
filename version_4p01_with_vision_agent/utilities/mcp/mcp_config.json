@@ -1,0 +1,12 @@
+{
+    "mcpServers": {
+        "terminal": {
+            "command": "/Users/theailanguage/.local/bin/uv",
+            "args": [
+                "--directory", "/Users/theailanguage/mcp/servers/terminal_server",
+                "run", 
+                "terminal_server.py"
+            ]
+        }
+    }
+}
