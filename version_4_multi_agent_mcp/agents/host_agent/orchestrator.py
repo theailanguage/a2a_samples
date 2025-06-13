@@ -101,7 +101,7 @@ class OrchestratorAgent:
             # Name the wrapper so ADK can refer to it by the tool's name
             wrapper.__name__ = tool.name
             # updated (13/Jun/25) also add the tool description so the agent can read it
-            # wrapper.__doc__ = tool.description or f"Tool wrapper for MCP tool: {tool.name}"
+            wrapper.__doc__ = tool.description or f"Tool wrapper for MCP tool: {tool.name}"
             return wrapper
 
         # Create and register a FunctionTool for each MCP tool
