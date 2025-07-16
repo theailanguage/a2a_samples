@@ -5,6 +5,7 @@ description = "A2A Agent With Google ADK"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "adk>=0.0.5",
     "asyncclick>=8.1.8",
     "click>=8.1.8",
     "google-adk>=1.0.0",

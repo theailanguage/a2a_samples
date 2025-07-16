@@ -137,7 +137,7 @@ class OrchestratorAgent:
         # Create and return the LlmAgent
         return LlmAgent(
             # model="gemini-1.5-flash-latest",                 # Gemini model variant
-            model="gemini-2.5-flash-preview-04-17",
+            model="gemini-2.5-flash",
             name="orchestrator_agent",                        # Unique name for this agent
             description="Routes requests to A2A agents or MCP tools.",
             instruction=self._root_instruction,                  # System prompt callback

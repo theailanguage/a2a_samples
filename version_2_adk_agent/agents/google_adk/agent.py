@@ -11,7 +11,8 @@
 # 📦 Built-in & External Library Imports
 # -----------------------------------------------------------------------------
 
-from datetime import datetime  # Used to get the current system time
+from datetime import datetime
+import traceback  # Used to get the current system time
 
 # 🧠 Gemini-based AI agent provided by Google's ADK
 from google.adk.agents.llm_agent import LlmAgent
@@ -96,43 +97,53 @@ class TellTimeAgent:
         Returns:
             str: Agent's reply (usually the current time)
         """
+        try:
 
-        # 🔁 Try to reuse an existing session (or create one if needed)
-        session = await self._runner.session_service.get_session(
-            app_name=self._agent.name,
-            user_id=self._user_id,
-            session_id=session_id
-        )
-
-        if session is None:
-            session = await self._runner.session_service.create_session(
+            # 🔁 Try to reuse an existing session (or create one if needed)
+            session = await self._runner.session_service.get_session(
                 app_name=self._agent.name,
                 user_id=self._user_id,
-                session_id=session_id,
-                state={}  # Optional dictionary to hold session state
+                session_id=session_id
             )
 
-        # 📨 Format the user message in a way the Gemini model expects
-        content = types.Content(
-            role="user",
-            parts=[types.Part.from_text(text=query)]
-        )
+            if session is None:
+                session = await self._runner.session_service.create_session(
+                    app_name=self._agent.name,
+                    user_id=self._user_id,
+                    session_id=session_id,
+                    state={}  # Optional dictionary to hold session state
+                )
 
-        # 🚀 Run the agent using the Runner and collect the last event
-        last_event = None
-        async for event in self._runner.run_async(
-            user_id=self._user_id,
-            session_id=session.id,
-            new_message=content
-        ):
-            last_event = event
+            # 📨 Format the user message in a way the Gemini model expects
+            content = types.Content(
+                role="user",
+                parts=[types.Part.from_text(text=query)]
+            )
 
-        # 🧹 Fallback: return empty string if something went wrong
-        if not last_event or not last_event.content or not last_event.content.parts:
-            return ""
+            # 🚀 Run the agent using the Runner and collect the last event
+            last_event = None
+            async for event in self._runner.run_async(
+                user_id=self._user_id,
+                session_id=session.id,
+                new_message=content
+            ):
+                last_event = event
 
-        # 📤 Extract and join all text responses into one string
-        return "\n".join([p.text for p in last_event.content.parts if p.text])
+            # 🧹 Fallback: return empty string if something went wrong
+            if not last_event or not last_event.content or not last_event.content.parts:
+                return ""
+
+            # 📤 Extract and join all text responses into one string
+            return "\n".join([p.text for p in last_event.content.parts if p.text])
+        except Exception as e:
+            # Print a user-friendly error message
+            print(f"🔥🔥🔥 An error occurred in TellTimeAgent.invoke: {e}")
+
+            # Print the full, detailed stack trace to the console
+            traceback.print_exc()
+
+            # Return a helpful error message to the user/client
+            return "Sorry, I encountered an internal error and couldn't process your request."
 
 
     async def stream(self, query: str, session_id: str):
