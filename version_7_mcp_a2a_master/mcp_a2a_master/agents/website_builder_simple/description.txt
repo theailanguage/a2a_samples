@@ -1,0 +1,1 @@
+This agent takes a user query for a website and generates a single self-contained HTML file with embedded CSS and JavaScript. 

@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "terminal_server": {
+      "command": "/Library/Frameworks/Python.framework/Versions/3.13/bin/uv",
+      "args": [
+        "--directory",
+        "/Users/theailanguage/mcp_a2a_master/mcp/servers/terminal_server",
+        "run",
+        "terminal_server.py"
+      ]
+    },
+    "arithmetic_server": {
+      "command": "streamable_http",
+      "args": [
+        "http://localhost:3000/mcp/"
+      ]
+    }
+  }
+}

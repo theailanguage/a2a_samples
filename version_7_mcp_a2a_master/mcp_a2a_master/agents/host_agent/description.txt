@@ -1,0 +1,1 @@
+Routes requests to A2A agents or MCP tools.
