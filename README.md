@@ -23,11 +23,12 @@ a2a_samples/
 ├── version_4p01_with_vision_agent/ # Adds Gemini-based VisionAgent to version_4 architecture
 ├── version_5_a2a_sdk/       # Minimal A2A PYTHON SDK setup with streaming, LangChain + Gemini
 ├── version_6_docker_vision_agent/ # Dockerized Gemini Vision Agent deployable to Google Cloud
+├── version_7_mcp_a2a_master/ # Production-ready masterclass project with MCP + A2A orchestration
 ```
 
 ---
 
-## 📦 Version Overview
+## 𞿦 Version Overview
 
 ### ✅ `version_1_simple`
 
@@ -102,6 +103,37 @@ A production-style deployment of a Gemini-based VisionAgent in a Docker containe
 
 ﹖→ [Explore the folder](./version_6_docker_vision_agent/)
 
+### 📆 `version_7_mcp_a2a_master`
+
+Build a production-ready multi-agent orchestration system using the Model Context Protocol (MCP) and Agent-to-Agent (A2A) communication.
+
+This is a **coding master class**. Please refer to the videos for overview:
+
+* **MCP Overview**: [https://www.youtube.com/watch?v=lUs2wrlazwM\&list=PL6tW9BrhiPTCDteflzehKS6Cn3a79-iCs](https://www.youtube.com/watch?v=lUs2wrlazwM&list=PL6tW9BrhiPTCDteflzehKS6Cn3a79-iCs)
+* **A2A Overview**: [https://www.youtube.com/watch?v=0bgrPco8Wfw\&list=PL6tW9BrhiPTCKTXXJAwigi7QDNpA7t4Ip](https://www.youtube.com/watch?v=0bgrPco8Wfw&list=PL6tW9BrhiPTCKTXXJAwigi7QDNpA7t4Ip)
+
+﹖→ [Explore the folder](./version_7_mcp_a2a_master/mcp_a2a_master/)
+
+#### 📆 Project Features:
+
+* STDIO and Streamable HTTP MCP servers
+* Agent discovery and registration
+* Task orchestration with A2A-compatible agents
+* A working host agent delegating to remote agents
+* Command-line interface for interacting with the system
+* Clear folder structure and reusable utilities
+
+#### 🛠️ Tech Requirements:
+
+* Python 3.11+
+* `uv` (Universal Virtualenv tool)
+
+
+#### 🚀 DISCOUNTED COURSES
+
+* [MCP & A2A Udemy Course](https://www.udemy.com/course/modelcontextprotocol/?couponCode=DISCOUNT479) – Completion certificate, practice questions, Q\&A
+* [Google ADK Udemy Course](https://www.udemy.com/course/google-adk-agent-development-kit-mac-windows-ubuntu/?couponCode=DISCOUNT479) – Certificate, bite-sized lectures
+
 ---
 
 ## 🧪 Running the Code
@@ -116,7 +148,7 @@ Make sure to check the respective version folder before you begin!
 
 ---
 
-## 🛠 Future Plans
+## 🛠️ Future Plans
 
 * Add streaming support via SSE and `tasks/sendSubscribe`
 * Add push notification samples
