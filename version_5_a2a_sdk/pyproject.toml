@@ -1,0 +1,18 @@
+[project]
+name = "version-5-a2a-sdk"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "a2a-sdk==0.2.4",
+    "click>=8.2.1",
+    "google-genai>=1.16.1",
+    "httpx>=0.28.1",
+    "langchain>=0.3.25",
+    "langchain-google-genai>=2.1.4",
+    "langgraph>=0.4.7",
+    "python-dotenv>=1.1.0",
+    "rich>=14.0.0",
+    "uvicorn>=0.34.2",
+]
