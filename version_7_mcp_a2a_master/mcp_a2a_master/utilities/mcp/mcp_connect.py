@@ -52,14 +52,14 @@ class MCPConnector:
                 
                 # ADDED: Wrap toolset creation with timeout and error handling
                 # This prevents hanging on unresponsive MCP servers
+                mcp_toolset = MCPToolset(connection_params=conn)
                 toolset = await asyncio.wait_for(
-                    MCPToolset(connection_params=conn).get_tools(),
+                    mcp_toolset.get_tools(),
                     timeout=10.0
                 )
                 
                 if toolset:
                     # Create the actual toolset object for caching
-                    mcp_toolset = MCPToolset(connection_params=conn)
                     tool_names = [tool.name for tool in toolset]
                     print(f"[bold green]Loaded tools from server [cyan]'{name}'[/cyan]:[/bold green] {', '.join(tool_names)}")
                     tools.append(mcp_toolset)
